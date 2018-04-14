@@ -1,0 +1,10 @@
+set cut_paste_input [stack 0]
+version 8.0 v7
+push $cut_paste_input
+NoOp {
+ name NoOp2
+ label "\[ join \[ lrange \[ split \[value input.file] _ ] 0 9] _].####.dpx\n\n\n"
+ selected true
+ xpos 196
+ ypos 304
+}

@@ -1,0 +1,11 @@
+set cut_paste_input [stack 0]
+version 8.0 v6
+push $cut_paste_input
+NoOp {
+ name NoOp1
+ label "\n\[ lrange \[ split \[file dirname \[value input.file]] / ] 8 8 ]\n\n\[ lrange \[ split \[basename \[value input.file]] . ] 0 0]"
+ selected true
+ xpos -25
+ ypos -1201
+ hide_input true
+}

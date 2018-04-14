@@ -1,0 +1,14 @@
+old = '/rdo/ads/att/10010/0100/mp/textures/proj/'
+new = '/job/comms/att_dtv_distored_everything_3001368/reference/in/artwork/180328_PM/rdo_20180328_001/ATT_last_shot_graded/MPTD/proj/'
+
+
+
+for i in nuke.allNodes():
+    try:
+        f = i['file']
+        f.setValue(f.getValue().replace(old,new))
+    except:
+        pass
+
+
+'test'.replace('te','zz')

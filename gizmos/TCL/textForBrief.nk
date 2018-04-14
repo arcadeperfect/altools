@@ -1,0 +1,15 @@
+set cut_paste_input [stack 0]
+version 7.0 v9
+push $cut_paste_input
+Text {
+ message "\[ lrange \[ split \[basename \[value input.file]] . ] 0 0]\n\n\[file dirname \[value input.file]]/\[ lrange \[ split \[basename \[value input.file]] . ] 0 0]\n\nframe \[frame]\n\n\n\n\n"
+ font /usr/share/fonts/bitstream-vera/Vera.ttf
+ yjustify center
+ box {26 329 2838 988}
+ translate {-8 1228}
+ center {1250 659}
+ name Text1
+ selected true
+ xpos -40
+ ypos 494
+}

@@ -1,0 +1,12 @@
+oldString = 'oldTrack'
+newString = 'newTrack'
+
+for i in nuke.allNodes():
+    for x in i.knobs():
+        k = i[x]
+        if k.hasExpression():
+            for a in k.animations():
+                oldExpression = a.expression()
+                newExpression = oldExpression.replace(oldString, newString)
+                a.setExpression(newExpression)
+

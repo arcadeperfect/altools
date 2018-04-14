@@ -1,0 +1,109 @@
+set cut_paste_input [stack 0]
+version 10.0 v5
+push $cut_paste_input
+Group {
+ name turbulate
+ selected true
+ xpos 5680
+ ypos 2076
+ addUserKnob {20 User}
+ addUserKnob {26 noise l "" +STARTLINE T "noise\n"}
+ addUserKnob {41 type T Noise1.type}
+ addUserKnob {41 size l x/ysize T Noise1.size}
+ addUserKnob {41 zoffset l z T Noise1.zoffset}
+ addUserKnob {26 distort l "" +STARTLINE T "\ndistort\n"}
+ addUserKnob {41 amount T IDistort1.uv_scale}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 840
+  ypos -490
+ }
+set Nc6795350 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle2
+  xpos 696
+  ypos -455
+ }
+set N30ce3eb0 [stack 0]
+ Noise {
+  size {{parent.Noise1.size}}
+  zoffset {{parent.Noise1.zoffset+1000}}
+  octaves {{parent.Noise1.octaves}}
+  lacunarity {{parent.Noise1.lacunarity}}
+  gain {{parent.Noise1.gain}}
+  gamma {{parent.Noise1.gamma}}
+  center {1024 778}
+  name Noise2
+  xpos 622
+  ypos -370
+ }
+push $N30ce3eb0
+ Noise {
+  size 180
+  zoffset 0.96
+  gamma 1
+  center {1024 778}
+  name Noise1
+  xpos 510
+  ypos -389
+ }
+ Copy {
+  inputs 2
+  from0 rgba.green
+  to0 rgba.green
+  name Copy3
+  xpos 510
+  ypos -333
+ }
+ Expression {
+  expr0 r*2-1
+  expr1 g*2-1
+  name Expression1
+  xpos 510
+  ypos -250
+ }
+add_layer {distort distort.u distort.v}
+ Shuffle {
+  out distort
+  name Shuffle1
+  xpos 510
+  ypos -58
+ }
+push $Nc6795350
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels distort
+  name Copy2
+  xpos 840
+  ypos -70
+ }
+ IDistort {
+  uv distort
+  uv_scale 13.8
+  name IDistort1
+  xpos 840
+  ypos 33
+ }
+set N30cd4390 [stack 0]
+ Output {
+  name Output1
+  xpos 840
+  ypos 134
+ }
+push $N30cd4390
+ Viewer {
+  channels distort
+  input_process false
+  name Viewer1
+  xpos 731
+  ypos -231
+ }
+end_group

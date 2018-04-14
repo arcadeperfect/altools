@@ -1,0 +1,179 @@
+set cut_paste_input [stack 0]
+version 10.0 v5
+push $cut_paste_input
+Group {
+name Cornerpin_stab
+selected true
+xpos -2784
+ypos 2480
+addUserKnob {20 User}
+addUserKnob {22 setToCurrent l "Set to current frame" T "nuke.thisNode().begin()\n\nnuke.thisNode()\['ReferenceFrame'].setValue(nuke.frame())\n" +STARTLINE}
+addUserKnob {7 ReferenceFrame l "Reference Frame"}
+ReferenceFrame 1036
+addUserKnob {6 Stabilize +STARTLINE}
+Stabilize true
+}
+Input {
+inputs 0
+name cornerpin
+xpos 290
+ypos 58
+number 1
+addUserKnob {20 User}
+addUserKnob {12 to1}
+to1 {{input1.to1} {input1.to1}}
+addUserKnob {12 to2}
+to2 {{input1.to2} {input1.to2}}
+addUserKnob {12 to3}
+to3 {{input1.to3} {input1.to3}}
+addUserKnob {12 to4}
+to4 {{input1.to4} {input1.to4}}
+}
+Input {
+inputs 0
+name Image
+xpos 0
+}
+CornerPin2D {
+to1 {{parent.cornerpin.to1} {parent.cornerpin.to1}}
+to2 {{parent.cornerpin.to2} {parent.cornerpin.to2}}
+to3 {{parent.cornerpin.to3} {parent.cornerpin.to3}}
+to4 {{parent.cornerpin.to4} {parent.cornerpin.to4}}
+invert {{this.parent.Stabilize}}
+from1 {{to1(ref)} {to1(ref)}}
+from2 {{to2(ref)} {to2(ref)}}
+from3 {{to3(ref)} {to3(ref)}}
+from4 {{to4(ref)} {to4(ref)}}
+name CornerPin2D1
+selected true
+xpos 0
+ypos 115
+addUserKnob {20 User}
+addUserKnob {7 ref}
+ref 1027
+}
+set N5de49810 [stack 0]
+Viewer {
+frame_range 1001-1049
+name Viewer1
+xpos 85
+ypos 163
+}
+push $N5de49810
+Output {
+name Output1
+xpos 0
+ypos 300
+}
+end_group
+push $cut_paste_input
+Group {
+name CP_to_Tracker1
+selected true
+xpos -2785
+ypos 2424
+addUserKnob {20 Trakcs}
+addUserKnob {22 ReLink l "Re Link" T "#g = nuke.selectedNode()\n\ng = nuke.thisNode()\n\ng.begin()\n\nn = nuke.toNode(\"daTrack\")\nc = nuke.toNode(\"cornerpin\")\n\nfor i in range(1,5):\n    nAttr = n\['track%s' %i]\n    cAttr = c\['to%s' %i]\n    nAttr.setExpression('parent.cornerpin.to%s' %i)\n    " +STARTLINE}
+addUserKnob {22 Bake T "\n\nframerange = nuke.getFramesAndViews('get range', str(nuke.root().frameRange()))\n\nframerange = \[int(f) for f in framerange\[0].split('-')]\ng = nuke.thisNode()\ng.begin()\nt = nuke.toNode(\"daTrack\")\nfor f in range(framerange\[0],framerange\[1]):\n    for i in range(1,5):\n        attr = t\['track%s' %i]\n        if attr.isAnimated():\n            attr.animations()\[0].setKey(f, attr.getValue()\[0])\n            attr.animations()\[1].setKey(f, attr.getValue()\[1])\n    \n\n\n\n" +STARTLINE}
+addUserKnob {22 generateRoto l "Create Roto Node" T "t = nuke.thisNode()\nt.end()\n\ndef trackToRoto(t):\n    r = nuke.createNode(\"Roto\", inpanel=False)\n    layer = r\['curves'].rootLayer.getTransform()\n    layer.getTranslationAnimCurve(0).expressionString = 'parent.%s.translate' %t.name()\n    layer.getTranslationAnimCurve(1).expressionString = 'parent.%s.translate' %t.name()\n    layer.getRotationAnimCurve(2).expressionString = 'parent.%s.rotate' %t.name()\n    layer.getScaleAnimCurve(0).expressionString = 'parent.%s.scale' %t.name()\n    layer.getScaleAnimCurve(1).expressionString = 'parent.%s.scale' %t.name()\n    layer.getPivotPointAnimCurve(0).expressionString = 'parent.%s.center' %t.name()\n    layer.getPivotPointAnimCurve(1).expressionString = 'parent.%s.center' %t.name()\n\ntrackToRoto(t)" +STARTLINE}
+addUserKnob {26 "" l "@b;Tracker 1"}
+addUserKnob {41 enable1 l enable T daTrack.enable1}
+addUserKnob {41 use_for1 l "Use to calculate:" T daTrack.use_for1}
+addUserKnob {41 track1 T daTrack.track1}
+addUserKnob {26 "" l "@b;Tracker 2"}
+addUserKnob {41 enable2 l enable T daTrack.enable2}
+addUserKnob {41 use_for2 l "Use to calculate:" T daTrack.use_for2}
+addUserKnob {41 track2 T daTrack.track2}
+addUserKnob {26 "" l "@b;Tracker 3"}
+addUserKnob {41 enable3 l enable T daTrack.enable3}
+addUserKnob {41 use_for3 l "Use to calculate:" T daTrack.use_for3}
+addUserKnob {41 track3 T daTrack.track3}
+addUserKnob {26 "" l "@b;Tracker 4"}
+addUserKnob {41 enable4 l enable T daTrack.enable4}
+addUserKnob {41 use_for4 l "Use to calculate:" T daTrack.use_for4}
+addUserKnob {41 track4 T daTrack.track4}
+addUserKnob {20 Transform}
+addUserKnob {41 transform T daTrack.transform}
+addUserKnob {41 reference_frame l "reference frame" T daTrack.reference_frame}
+addUserKnob {41 jitter_period l "jitter period" T daTrack.jitter_period}
+addUserKnob {41 smoothT l "smooth t" T daTrack.smoothT}
+addUserKnob {41 smoothR l r T daTrack.smoothR}
+addUserKnob {41 smoothS l s T daTrack.smoothS}
+addUserKnob {41 matrix T daTrack.matrix}
+addUserKnob {41 translate T daTrack.translate}
+addUserKnob {41 rotate T daTrack.rotate}
+addUserKnob {41 scale T daTrack.scale}
+addUserKnob {41 skewX l "skew X" T daTrack.skewX}
+addUserKnob {41 skewY l "skew Y" T daTrack.skewY}
+addUserKnob {41 skew_order l "skew order" T daTrack.skew_order}
+addUserKnob {41 center T daTrack.center}
+addUserKnob {41 filter T daTrack.filter}
+addUserKnob {41 clamp T daTrack.clamp}
+addUserKnob {41 black_outside l "black outside" T daTrack.black_outside}
+addUserKnob {41 motionblur T daTrack.motionblur}
+addUserKnob {41 shutter T daTrack.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T daTrack.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T daTrack.shuttercustomoffset}
+}
+Input {
+inputs 0
+name image
+xpos -586
+ypos -330
+}
+Tracker3 {
+use_for1 {T R}
+track1 {{parent.cornerpin.to1 x1001 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3 1558.3} {parent.cornerpin.to1 x1001 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345 859.345}}
+offset1 {0 0}
+pattern1 {-53 -106 53 106}
+search1 {-37 -74 37 74}
+enable2 true
+use_for2 {T R}
+track2 {{parent.cornerpin.to2 x1001 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04 1750.04} {parent.cornerpin.to2 x1001 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5 859.5}}
+offset2 {0 0}
+pattern2 {-53 -106 53 106}
+search2 {-37 -74 37 74}
+enable3 true
+use_for3 {T R}
+track3 {{parent.cornerpin.to3 x1001 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87 1749.87} {parent.cornerpin.to3 x1001 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22 1050.22}}
+offset3 {0 0}
+pattern3 {-53 -106 53 106}
+search3 {-37 -74 37 74}
+enable4 true
+use_for4 {T R}
+track4 {{parent.cornerpin.to4 x1001 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12 1558.12} {parent.cornerpin.to4 x1001 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07 1050.07}}
+offset4 {0 0}
+pattern4 {-53 -106 53 106}
+search4 {-37 -74 37 74}
+transform match-move
+reference_frame 1013
+translate {{curve x1001 68.55749512 64.64001465 54.9074707 41.78503418 27.3223877 13.34240723 2.507568359 -5.102539062 -10.36743164 -12.97998047 -11.52246094 -6.917480469 0 7.467407227 14.94006348 21.54248047 25.95495605 26.35754395 23.61242676 18.12744141 10.89245605 2.147460938 -10.30993652 -24.33239746 -34.69250488 -40.38000488 -42.42736816 -43.49743652 -44.24255371 -44.82250977 -45.3425293 -48.10266113 -52.24255371 -57.29504395 -62.02258301 -65.01757812 -65.03503418 -63.32751465 -61.5625 -60.14489746 -60.15759277 -62.52001953 -66.54748535 -71.5625 -76.79748535 -80.95751953 -84.54992676 -87.05505371} {curve x1001 -145.7354736 -136.4517822 -129.4575195 -125.7001953 -126.0393066 -126.4575195 -122.8139648 -113.9490356 -97.7052002 -75.66491699 -50.59716797 -24.34667969 0 22.0994873 39.77453613 50.89196777 58.18701172 66.09204102 74.0670166 76.68701172 73.92199707 70.0345459 72.33947754 80.53955078 93.25952148 103.154541 112.1745605 116.5245361 115.2346191 104.4295654 86.63549805 66.96936035 55.26855469 50.4152832 46.68249512 44.31103516 46.31872559 48.3170166 48.9498291 47.3034668 45.09851074 44.80529785 44.85424805 45.3248291 45.20080566 43.77526855 42.27331543 39.39953613}}
+rotate {{curve x1001 -2.004540383 -1.965365981 -1.770676714 -1.623593265 -1.629689501 -1.566707231 -1.319752334 -1.017634673 -0.2642817508 -0.00211004442 0.006486636652 -0.01832300466 0 0.216380973 0.36244056 0.7502336793 1.868330938 3.657967644 5.83103962 8.606503258 11.89080294 15.46355435 19.22007727 24.62237426 28.8566878 31.18372385 32.40448613 33.65375908 35.04739624 36.03327333 35.88250528 35.97794505 37.36085401 38.66112806 39.47347111 40.23706865 40.55932148 40.73448824 40.87904683 41.22300052 41.14652491 40.77009857 40.62994342 40.31836603 39.75509579 39.54905907 39.26056568 39.07258469}}
+center {{curve x1001 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505 1589.442505} {curve x1001 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474 1091.235474}}
+name daTrack
+xpos -586
+ypos -268
+}
+Output {
+name Output1
+xpos -586
+ypos -187
+}
+Input {
+inputs 0
+name cornerpin
+selected true
+xpos -369
+ypos -321
+number 1
+addUserKnob {20 User}
+addUserKnob {12 to1}
+to1 {{input1.to1} {input1.to1}}
+addUserKnob {12 to2}
+to2 {{input1.to2} {input1.to2}}
+addUserKnob {12 to3}
+to3 {{input1.to3} {input1.to3}}
+addUserKnob {12 to4}
+to4 {{input1.to4} {input1.to4}}
+}
+end_group

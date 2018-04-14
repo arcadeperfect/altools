@@ -1,0 +1,46 @@
+set cut_paste_input [stack 0]
+version 8.0 v6
+push $cut_paste_input
+NoOp {
+ name NoOp59
+ label "\n\n\[ lrange \[ split \[basename \[value \[topnode]input.file]] . ] 0 0]\n\n"
+ selected true
+ xpos 3498
+ ypos 10720
+}
+Text2 {
+ font_size_toolbar 36
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\[file rootname \[value \[topnode].file]]"
+ box {0 1115 2726 1152}
+ hidden_bbox {0 1115 2726 1152}
+ transforms {{0 2}
+   }
+ font_size_values {{0 36 1 36 2 36 3 36 4 36 5 36 6 36 7 36 8 36 9 36 10 36 11 36 12 36 13 36 14 36 15 36 16 36 17 36 18 36 19 36 20 36 21 36 22 36 23 36 24 36 25 36 26 36 27 36 28 36 29 36 30 36 31 36 32 36 33 36 34 36 35 36 36 36 37 36 38 36 39 36 40 36 41 36 42 36 43 36 44 36 45 36 46 36 47 36 48 36 49 36 50 36 51 36 52 36 53 36 54 36 55 36 56 36 57 36 58 36 59 36 60 36 61 36 62 36 63 36 64 36 65 36 66 36 67 36 68 36 69 36 70 36 71 36 72 36 73 36 74 36 75 36 76 36 77 36 78 36 79 36 80 36 81 36 82 36 83 36 84 36 85 36 86 36 87 36 88 36 89 36 90 36 91 36 92 36 93 36 94 36 95 36 96 36 97 36 98 36 99 36 100 36 101 36 102 36 103 36 104 36 105 36 106 36 107 36 108 36 109 36 110 36 111 36 112 36 113 36 114 36 115 36 116 36 117 36 118 36 119 36 120 36 121 36 122 36 123 36 124 36 125 36 126 36 127 36 128 36 129 36 130 36 131 36 132 36 133 36 134 36 135 36 136 36 137 36 138 36 139 36 140 36 141 36}
+   }
+ font_size 36
+ center {1024 576}
+ cursor_initialised true
+ initial_cursor_position {{0 1152}
+   }
+ group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+ animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+   }
+ name Text56
+ selected true
+ xpos 3498
+ ypos 10856
+}
+push $cut_paste_input
+Write {
+ file "/disk1/alex-ha/test/test_\[ lrange \[ split \[basename \[value \[topnode]input.file]] . ] 0 0].###.jpg"
+ file_type jpeg
+ _jpeg_quality 1
+ checkHashOnRead false
+ version 1
+ name Write4
+ selected true
+ xpos 3666
+ ypos 10738
+}

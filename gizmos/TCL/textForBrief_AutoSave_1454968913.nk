@@ -1,0 +1,50 @@
+#! /software/nuke/8.0v6/linux.centos5.x86_64/libnuke-8.0.v6.so -nx
+version 8.0 v6
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1175" screen="0">
+        <splitter orientation="1">
+            <split size="956"/>
+            <splitter orientation="2">
+                <split size="1121"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Script Editor.1"/>
+                    <page id="Script Editor.2"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="Viewer.1"/>
+                </dock>
+            </splitter>
+            <split size="956"/>
+            <splitter orientation="2">
+                <split size="559"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                </dock>
+                <split size="558"/>
+                <dock id="" activePageId="DAG.1">
+                    <page id="Toolbar.1"/>
+                    <page id="DAG.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /usr/people/alex-ha/NukeThings/TCL/textForBrief.nk
+}
+Text {
+ inputs 0
+ message "\[ lrange \[ split \[basename \[value input.file]] . ] 0 0]\n\n\[file dirname \[value input.file]]/\[ lrange \[ split \[basename \[value input.file]] . ] 0 0]\n\nframe \[frame]\n\n\n\n\n"
+ font /usr/share/fonts/bitstream-vera/Vera.ttf
+ yjustify center
+ box {26 329 2838 988}
+ translate {-8 1228}
+ center {1250 659}
+ name Text1
+ selected true
+ xpos -42
+ ypos 498
+}

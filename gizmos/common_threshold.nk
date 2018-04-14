@@ -1,0 +1,17 @@
+set cut_paste_input [stack 0]
+version 10.0 v5
+push $cut_paste_input
+push 0
+MergeExpression {
+inputs 2
+temp_name0 thresh
+temp_expr0 this.threshold
+expr3 Ar>(Br+thresh)||Ar<(Br-thresh)?1:0
+name MergeExpression4
+selected true
+xpos 1255
+ypos 588
+addUserKnob {20 User}
+addUserKnob {7 threshold}
+threshold 3e-08
+}

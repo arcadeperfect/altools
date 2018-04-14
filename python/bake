@@ -1,0 +1,25 @@
+framerange = [1001,1049]
+
+g = nuke.selectedNode()
+
+g.begin()
+
+t = nuke.toNode("daTrack")
+
+f = 1001
+
+for f in range(framerange[0],framerange[1]):
+    for i in range(1,5):
+        attr = t['track%s' %i]
+        if attr.isAnimated():
+            attr.animations()[0].setKey(f, attr.getValue()[0])
+            attr.animations()[1].setKey(f, attr.getValue()[1])
+    
+
+
+
+
+if t['track1'].isAnimated():
+    for f in range(framerange[0],framerange[1])
+        v = 
+        f['track1'].animations

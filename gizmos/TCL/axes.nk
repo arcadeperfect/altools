@@ -1,0 +1,62 @@
+set cut_paste_input [stack 0]
+version 6.3 v7
+push $cut_paste_input
+Axis2 {
+ rotate {{"\[lindex \[split \[value this.name] _] 1] * mult\n\n"} 0 0}
+ name Axis_1
+ label "\[lindex \[split \[value this.name] _] 1]\n\n"
+ selected true
+ xpos 298
+ ypos 4122
+ addUserKnob {20 User}
+ addUserKnob {7 mult}
+ mult {{parent.NoOp2.mult}}
+}
+Axis2 {
+ inputs 0
+ rotate {{"\[lindex \[split \[value this.name] _] 1] * mult\n\n" i} 0 0}
+ name Axis_2
+ label "\[lindex \[split \[value this.name] _] 1]\n\n"
+ selected true
+ xpos 494
+ ypos 4114
+ addUserKnob {20 User}
+ addUserKnob {7 mult}
+ mult {{parent.NoOp2.mult i}}
+}
+Axis2 {
+ inputs 0
+ rotate {{"\[lindex \[split \[value this.name] _] 1] * mult\n\n" i} 0 0}
+ name Axis_3
+ label "\[lindex \[split \[value this.name] _] 1]\n\n"
+ selected true
+ xpos 674
+ ypos 4116
+ addUserKnob {20 User}
+ addUserKnob {7 mult}
+ mult {{parent.NoOp2.mult i}}
+}
+Axis2 {
+ inputs 0
+ rotate {{"\[lindex \[split \[value this.name] _] 1] * mult\n\n" i} 0 0}
+ name Axis_4
+ label "\[lindex \[split \[value this.name] _] 1]\n\n"
+ selected true
+ xpos 845
+ ypos 4108
+ addUserKnob {20 User}
+ addUserKnob {7 mult}
+ mult {{parent.NoOp2.mult i}}
+}
+Axis2 {
+ inputs 0
+ rotate {{"\[lindex \[split \[value this.name] _] 1] * mult\n\n" i} 0 0}
+ name Axis_5
+ label "\[lindex \[split \[value this.name] _] 1]\n\n"
+ selected true
+ xpos 1022
+ ypos 4110
+ addUserKnob {20 User}
+ addUserKnob {7 mult}
+ mult {{parent.NoOp2.mult i}}
+}

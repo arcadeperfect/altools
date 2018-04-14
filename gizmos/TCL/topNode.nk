@@ -1,0 +1,10 @@
+set cut_paste_input [stack 0]
+version 7.0 v9
+push $cut_paste_input
+NoOp {
+ name NoOp1
+ label "\[file rootname \[value \[topnode].file]]\n\n"
+ selected true
+ xpos -456
+ ypos -256
+}

@@ -1,0 +1,10 @@
+set cut_paste_input [stack 0]
+version 7.0 v8
+push $cut_paste_input
+NoOp {
+name frame_counter
+label "\nFrame range:\n\[value input.first_frame] - \[value input.last_frame] \n\nTotal frames:\n\[expr \{\[value input.last_frame] - \[value input.first_frame]\}]\n\n\n\n"
+selected true
+xpos -10255
+ypos 11699
+}

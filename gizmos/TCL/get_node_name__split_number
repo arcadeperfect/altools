@@ -1,0 +1,1 @@
+[lindex [split [value this.name] _] 1]
