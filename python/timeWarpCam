@@ -1,0 +1,9 @@
+target = 'layer_5_cam4'
+
+
+n = nuke.selectedNode()
+t = nuke.toNode(target)
+
+for i in ['translate','rotate','focal','haperture','vaperture','near','far']:
+
+    n[i].setExpression("parent.{}.{}(timewarp)".format(target,i))

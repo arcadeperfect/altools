@@ -1,0 +1,15 @@
+
+
+
+def clearCam():
+    
+    for n in nuke.selectedNodes("Camera2"):
+        keepAnimated = ['translate', 'rotate', 'focal']
+        camKnobs = ['suppress_dialog', 'file', 'uniform_scale', 'winroll', 'hide_input', 'xform_order', 'look_axis', 'file_menu', 'projection_mode', 'haperture', 'note_font_color', 'world_matrix', 'selected', 'orthographic', 'pivot', 'look_strength', 'import_chan', 'onCreate', 'updateUI', 'fbx_node_name', 'panel', 'help', 'win_scale', 'knobChanged', 'matrix', 'export_chan', 'tile_color', 'bookmark', 'skew', 'fstop', 'gl_wireframe_overlay', 'transform', 'note_font', 'focal_point', 'read_from_file', 'version', 'lifetimeStart', 'indicators', 'icon', 'translate', 'win_translate', 'vaperture', 'xpos', 'lifetimeEnd', 'use_frame_rate', 'look_rotate_x', 'far', 'gl_selectable', 'gl_render_mode', 'ypos', 'disable', 'scaling', 'postage_stamp', 'fbx_load_take_node_names', 'postage_stamp_frame', 'frame_rate', 'gl_color', 'selectable', 'snap_menu', 'gl_display', 'fbx_take_name', 'focal', 'look_rotate_z', 'look_rotate_y', 'compute_rotation', 'autolabel', 'rotate', 'name', 'cached', 'dope_sheet', 'useLifetime', 'label', 'note_font_size', 'look_use_quaternions', 'reload', 'near', 'rot_order', 'onDestroy', 'read_from_file_link', 'useMatrix', 'display']
+
+        for k in n.knobs():
+            if k in camKnobs:
+                k = n.knobs()[k]
+                if not k.name() in keepAnimated:
+                    if k.isAnimated():
+                        k.clearAnimated()
